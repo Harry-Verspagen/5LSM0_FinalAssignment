@@ -65,7 +65,8 @@ def main(args):
                             transforms.ToTensor(),])
     target_transforms = transforms.Compose([transforms.Resize((256,256)),
                             transforms.ToTensor(),])
-    train_dataset = datasets.Cityscapes('C:/Users/20191891/Documents/Temp/Final/data', split='train', mode='fine', target_type='semantic', transform=transform, target_transform=transform)
+    train_dataset = datasets.Cityscapes(args.data_path, split='train', mode='fine', target_type='semantic', transform=transform, target_transform=transform)
+    # 'C:/Users/20191891/Documents/Temp/Final/data'
     #train_dataset = CitySegmentation(split='train')
     #trainloader = torch.utils.data.DataLoader(train_dataset)
 
