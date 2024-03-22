@@ -33,19 +33,18 @@ from utils import map_id_to_train_id
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # You don't have a gpu, so use cpu
 
 
-
-#wandb.init(
+wandb.init(
     # set the wandb project where this run will be logged
-#    project="my-awesome-project",
+    project="my-awesome-project",
     
     # track hyperparameters and run metadata
-#    config={
-#    "learning_rate": 0.02,
-#    "architecture": "CNN",
-#    "dataset": "CIFAR-100",
-#    "epochs": 10,
-#    }
-#)
+    config={
+    "learning_rate": 0.02,
+    "architecture": "CNN",
+    "dataset": "CIFAR-100",
+    "epochs": 10,
+    }
+)
 
 
 def get_arg_parser():
@@ -102,6 +101,7 @@ def main(args):
 
 
     # visualize some results
+    wandb.finish()
 
     
 #class MyCitySpace(torchvision.datasets.Cityspaces):
@@ -129,6 +129,8 @@ def train_model(model, train_loader, criterion, optimizer, num_epochs=2, lr=0.01
             running_loss += loss.item()
 
         epoch_loss = running_loss / len(train_loader)
+        wandb.log({'loss': epoch_loss})
+        wandb.log(f'Epoch {epoch + 1}/{num_epochs}')
         print(f'Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}')
 
 
