@@ -35,4 +35,4 @@ Here's a brief overview of the files you'll find in this repository:
 
 ### Author
 
-- H.E.A.M. Verspagen
+- H.E.A.M. Verspagen, Codalab username: HarryV, TU/e e-mail: h.e.a.m.verspagen@student.tue.nl
