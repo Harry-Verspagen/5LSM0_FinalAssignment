@@ -24,7 +24,7 @@ class Model(nn.Module):
         self.d4 = decoder_block(128, 64)
 
         """ Classifier """
-        self.outputs = nn.Conv2d(64, 34, kernel_size=1, padding=0)
+        self.outputs = nn.Conv2d(64, 19, kernel_size=1, padding=0)
 
     def forward(self, inputs):
         """ Encoder """
@@ -54,7 +54,7 @@ class conv_block(nn.Module):
 
         self.conv1 = nn.Conv2d(in_c, out_c, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm2d(out_c)
-
+        #self.dropout = nn.Dropout(p=0.2)
         self.conv2 = nn.Conv2d(out_c, out_c, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm2d(out_c)
 
@@ -64,7 +64,7 @@ class conv_block(nn.Module):
         x = self.conv1(inputs)
         x = self.bn1(x)
         x = self.relu(x)
-
+       # x = self.dropout(x)
         x = self.conv2(x)
         x = self.bn2(x)
         x = self.relu(x)

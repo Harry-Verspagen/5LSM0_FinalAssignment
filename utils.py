@@ -1,6 +1,6 @@
 from collections import namedtuple
 import torch
-
+import numpy as np
 
 Label = namedtuple( 'Label' , [
 
@@ -88,3 +88,26 @@ def map_id_to_train_id(label_id):
         # replace the value in the tensor with the train id if the value in the input tensor is equal to the id of the label
         train_id_tensor[label_id == label.id] = label.trainId
     return train_id_tensor
+
+def get_class_weights(loader, num_classes, c=1.02):
+    '''
+    This class return the class weights for each class
+    
+    Arguments:
+    - loader : The generator object which return all the labels at one iteration
+               Do Note: That this class expects all the labels to be returned in
+               one iteration
+
+    - num_classes : The number of classes
+
+    Return:
+    - class_weights : An array equal in length to the number of classes
+                      containing the class weights for each class
+    '''
+
+    _, labels = next(loader)
+    all_labels = labels.flatten()
+    each_class = np.bincount(all_labels, minlength=num_classes)
+    prospensity_score = each_class / len(all_labels)
+    class_weights = 1 / (np.log(c + prospensity_score))
+    return class_weights
